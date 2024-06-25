@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Warehouse Management System</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <img src="/images/logo.png" alt="Company Logo">
+        <div class="header-right">
+            <span>You are logged as: <span th:text="qwerty123"></span></span>
+            <a th:href="@{/auth/login}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+
+    <nav>
+        <a th:href="@{/orders}">Order</a>
+        <a th:href="@{/receptions}" class="active">Acceptance</a>
+        <a th:href="@{/goods}">Goods</a>
+        <a th:href="@{/operations}">Operation</a>
+        <a th:href="@{/sector-goods}">Goods in Sectors</a>
+    </nav>
+    <section class="orders-section">
+        <table>
+            <thead>
+            <tr>
+                <th>Acceptance Item ID</th>
+                <th>Expected Quantity</th>
+                <th>Received Quantity</th>
+                <th>Good ID</th>
+                <th>Good name</th>
+                <th>Acceptance ID</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${items}">
+                <td th:text="${item.id}">GoodOrderID</td>
+                <td th:text="${item.expectedQuantity}">Expected Quantity</td>
+                <td th:text="${item.receivedQuantity}">Received Quantity</td>
+                <td th:text="${item.good.id}">Good ID</td>
+                <td th:text="${item.good.name}">Good Name</td>
+                <td th:text="${item.acceptance.id}">Acceptance ID</td>
+                <td>
+                    <a th:href="@{/reception-item/update/{id}(id=${item.id})}" class="update-btn">Update</a>
+                    <a th:href="@{/reception-item/delete/{id}(id=${item.id})}" class="delete-btn">Delete</a>
+                    <a th:href="@{/sector-goods/add}" class="distribute-btn"> Distribute to the sector</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/reception-item/add}" class="add-btn">+</a>
+    </section>
+</div>
+</body>
+</html><

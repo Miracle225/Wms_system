@@ -25,7 +25,8 @@ public abstract class GoodDtoData {
                 new Warehouse("new st 100",
                         "warehouse",
                         TypeOfWarehouse.FOOD_WAREHOUSE,
-                        1000f));
+                        1000f),
+                1.25);
     }
 
     public static GoodDto getUpdatedGood() {
@@ -41,7 +42,8 @@ public abstract class GoodDtoData {
                 new Warehouse("new st 100",
                         "new warehouse",
                         TypeOfWarehouse.FOOD_WAREHOUSE,
-                        1000f));
+                        1000f),
+                2.56);
     }
 
 }

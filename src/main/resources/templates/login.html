@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+   <meta charset="UTF-8">
+    <title>EasyStore - Warehouse Management System</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+        body {
+            background-color: #e5e5e5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+<!--    <h1>EasyStore</h1>-->
+<!--    <h2>Warehouse management system</h2>-->
+    <img src="/images/logo.png" alt="Company Logo">
+    <form id="login-form" th:action="@{/auth/sign-in}" method="post">
+        <label for="username"></label>
+        <input type="text" id="username" name="username" placeholder="Login" required />
+        <label for="password"></label>
+        <input type="password" id="password" name="password" placeholder="Password" required />
+        <button type="submit">Login</button>
+    </form>
+    <div id="error-message" class="error-message"></div>
+</div>
+<!--<script>-->
+<!--    document.getElementById('login-form').addEventListener('submit', async function(event) {-->
+<!--        event.preventDefault();-->
+<!--        const username = document.getElementById('username').value;-->
+<!--        const password = document.getElementById('password').value;-->
+
+<!--        const response = await fetch('/auth/sign-in', {-->
+<!--            method: 'POST',-->
+<!--            headers: {-->
+<!--                'Content-Type': 'application/json'-->
+<!--            },-->
+<!--            body: JSON.stringify({ username, password })-->
+<!--        });-->
+
+<!--        if (response.ok) {-->
+<!--            const data = await response.json();-->
+<!--            // Handle JWT token here, for example, save it to local storage-->
+<!--            localStorage.setItem('token', data.token);-->
+<!--            window.location.href = '/goods'; // Redirect to home page or another protected page-->
+<!--        } else {-->
+<!--            const errorData = await response.json();-->
+<!--            document.getElementById('error-message').innerText = errorData.message || 'Invalid login or password';-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+</body>
+</html>

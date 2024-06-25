@@ -111,6 +111,15 @@ public class UserService {
         log.info("Updated user with id: {}", updatedUser.getId());
         return updatedUser;
     }
+    public List<User> getAllUsersByRole(Role role){
+        return printLogInfo(repository.findAllByRole(role));
+    }
+    public List<User> getAllUsersByNamePart(String username){
+        return printLogInfo(repository.findAllByUsernamePart(username));
+    }
+    public List<User> getUserByIdToList(Long id){
+        return printLogInfo(List.of(repository.findById(id).get()));
+    }
     private List<User> printLogInfo(List<User> users) {
         log.info("Size of loaded users from database: {}", users.size());
         return users;

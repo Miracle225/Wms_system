@@ -1,65 +1,103 @@
 package com.example.wms_system.controllers;
 
-import com.example.wms_system.dto.WarehouseDto;
 import com.example.wms_system.dto.WarehouseSectorDto;
-import com.example.wms_system.models.Order;
-import com.example.wms_system.models.Warehouse;
+import com.example.wms_system.models.GoodsInWarehouseSector;
 import com.example.wms_system.models.WarehouseSector;
+import com.example.wms_system.services.GoodInWarehouseSectorService;
 import com.example.wms_system.services.WarehouseSectorService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-@RestController
+@Controller
 @RequiredArgsConstructor
-@RequestMapping(value = "/sectors")
+@RequestMapping("/admin/sectors")
 public class WarehouseSectorController {
     private final WarehouseSectorService sectorService;
+    private final GoodInWarehouseSectorService goodSectorService;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    public List<WarehouseSector> getAllWarehouseSectors(@RequestParam Optional<Long> warehouseId) {
-        if (warehouseId.isPresent()) {
-            return sectorService.getAllByWarehouse(warehouseId.get());
+    public String getAllSectors(
+            @RequestParam Optional<String> id,
+            @RequestParam Optional<String> name,
+            @RequestParam Optional<String> warehouse,
+            Model model
+    ) {
+        List<WarehouseSector> sectors = sectorService.getAllSectors();
+        for (WarehouseSector sector : sectors) {
+            float occupiedVolume = 0.0f;
+            for(GoodsInWarehouseSector goods:goodSectorService.getAllGoodsBySector(sector.getId())){
+                Integer quantity = goods.getQuantity();
+                Double volume = goods.getGood().getVolume();
+                occupiedVolume = quantity*volume.floatValue();
+            }
+            sector.setAvailableVolume(sector.getTotalVolume()-occupiedVolume);
         }
-        return sectorService.getAllSectors();
+        if (id.isPresent() && !id.get().isBlank()) {
+            try {
+                Long sectorId = Long.parseLong(id.get());
+                sectors = sectorService.getByIdToList(sectorId);
+            } catch (IllegalArgumentException e) {
+                model.addAttribute("error", "Invalid id value");
+            }
+        }
+        if (name.isPresent() && !name.get().isBlank()) {
+            try {
+                sectors = sectorService.getAllBySectorNamePart(name.get());
+            } catch (IllegalArgumentException e) {
+                model.addAttribute("error", "Invalid sector name value");
+            }
+        }
+        if (warehouse.isPresent() && !warehouse.get().isBlank()) {
+            try {
+                Long warehouseIdLong = Long.parseLong(warehouse.get());
+                sectors = sectorService.getAllByWarehouse(warehouseIdLong);
+            } catch (IllegalArgumentException e) {
+                model.addAttribute("error", "Invalid Warehouse id value");
+            }
+        }
+        model.addAttribute("sectors", sectors);
+        return "sectors";
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/{id}")
-    public WarehouseSector getById(@PathVariable Long id) {
-        return sectorService.getById(id);
+    @GetMapping("/add")
+    public String showCreateSectorForm(Model model) {
+        model.addAttribute("sector", new WarehouseSectorDto());
+        return "create-sector";
     }
 
-    @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/{id}/{name}")
-    public WarehouseSector getByWarehouseIdAndName(@PathVariable Long id,
-                                                   @PathVariable String name) {
-        return sectorService.getByNameAndWarehouseId(id, name);
+    @PostMapping("/add")
+    public String createSector(@ModelAttribute @Valid WarehouseSectorDto sectorDto) {
+        sectorService.createNewSector(sectorDto);
+        return "redirect:/admin/sectors";
     }
 
-    @PostMapping()
-    ResponseEntity<?> createWarehouseSector(@RequestBody @Valid WarehouseSectorDto sectorDto) {
-        var sector = sectorService.createNewSector(sectorDto);
-        return new ResponseEntity<>(sector, HttpStatus.CREATED);
+    @GetMapping("/update/{id}")
+    public String showCreateSectorForm(@PathVariable Long id, Model model) {
+        WarehouseSector sector = sectorService.getById(id);
+        model.addAttribute("sector", sector);
+        return "update-sector";
     }
 
-    @PutMapping("/{id}")
-    ResponseEntity<?> updateWarehouseSector(@PathVariable Long id, @RequestBody @Valid WarehouseSectorDto sectorDto) {
-        var sector = sectorService.updateSector(id, sectorDto);
-        return new ResponseEntity<>(sector, HttpStatus.ACCEPTED);
+    @PostMapping("/update/{id}")
+    public String updateSector(@PathVariable Long id, @ModelAttribute @Valid WarehouseSectorDto sectorDto) {
+        sectorService.updateSector(id, sectorDto);
+        return "redirect:/admin/sectors";
     }
 
-    @DeleteMapping("/{id}")
-    ResponseEntity<?> deleteWarehouseSector(@PathVariable Long id) {
+    @GetMapping("/delete/{id}")
+    public String deleteSector(@PathVariable Long id) {
         sectorService.deleteSectorById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return "redirect:/admin/sectors";
     }
 }

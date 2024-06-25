@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <title>Warehouse Management System</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+  <header>
+    <img src="/images/logo.png" alt="Company Logo">
+    <div class="header-right">
+      <span>You are logged as: <span th:text="qwerty123"></span></span>
+      <a th:href="@{/auth/login}" class="logout-btn">Logout</a>
+    </div>
+  </header>
+
+  <nav>
+    <a th:href="@{/orders}">Order</a>
+    <a th:href="@{/receptions}">Acceptance</a>
+    <a th:href="@{/goods}" class="active">Goods</a>
+    <a th:href="@{/operations}">Operation</a>
+    <a th:href="@{/sector-goods}">Goods in Sectors</a>
+  </nav>
+
+  <section class="search-section">
+    <form th:action="@{/goods}" method="get">
+      <div>
+        <label for="Id">Id:</label>
+        <input type="text" id="Id" name="Id">
+      </div>
+      <div>
+        <label for="name">GoodName:</label>
+        <input type="text" id="name" name="name">
+      </div>
+      <div>
+        <label for="status">Status:</label>
+        <select id="status" name="status">
+          <option value="ALL">All</option>
+          <option value="IN_RECEIVING">IN_RECEIVING</option>
+          <option value="LOW_STOCK">LOW_STOCK</option>
+          <option value="ON_ORDER">ON_ORDER</option>
+          <option value="ON_STOCK">ON_STOCK</option>
+          <option value="OUT_OF_STOCK">OUT_OF_STOCK</option>
+        </select>
+      </div>
+      <div>
+        <label for="category">Category:</label>
+        <select id="category" name="category">
+          <option value="ALL">All</option>
+          <option value="FOOD_AND_BEVERAGE">FOOD_AND_BEVERAGE</option>
+          <option value="HEALTHCARE">HEALTHCARE</option>
+          <option value="LOGISTICS">LOGISTICS</option>
+          <option value="MANUFACTURING">MANUFACTURING</option>
+          <option value="RETAIL">RETAIL</option>
+        </select>
+      </div>
+      <div>
+        <label for="warehouseId">WarehouseID:</label>
+        <input type="text" id="warehouseId" name="warehouseId">
+      </div>
+      <div class="buttons">
+        <button type="submit">Search</button>
+        <button type="reset">Clear</button>
+      </div>
+    </form>
+  </section>
+
+  <section class="goods-section">
+    <table>
+      <thead>
+      <tr>
+        <th>GoodID</th>
+        <th>Name</th>
+        <th>Code</th>
+        <th>Status</th>
+        <th>Category</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Weight</th>
+        <th>Expiration Term</th>
+        <th>Unit of Measurement</th>
+        <th>Volume</th>
+        <th>WarehouseID</th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="good : ${goods}">
+        <td th:text="${good.id}">GoodID</td>
+        <td th:text="${good.name}">Name</td>
+        <td th:text="${good.code}">Code</td>
+        <td th:text="${good.status}">Status</td>
+        <td th:text="${good.category}">Category</td>
+        <td th:text="${good.description}">Description</td>
+        <td th:text="${good.price}">Price</td>
+        <td th:text="${good.weight}">Weight</td>
+        <td th:text="${good.expirationTerm}">Expiration Term</td>
+        <td th:text="${good.unitOfMeasurement}">Unit of Measurement</td>
+        <td th:text="${good.volume}">Volume</td>
+        <td th:text="${good.warehouse.getId()}">WarehouseID</td>
+        <td>
+          <a th:href="@{/goods/update/{id}(id=${good.id})}" class="update-btn">Update</a>
+          <a th:href="@{/goods/delete/{id}(id=${good.id})}" class="delete-btn">Delete</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <a th:href="@{/goods/add}" class="add-btn">+</a>
+  </section>
+</div>
+</body>
+</html>

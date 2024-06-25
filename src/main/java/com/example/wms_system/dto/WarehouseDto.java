@@ -17,7 +17,7 @@ public class WarehouseDto {
     private String address;
     @NotNull(message = "Name can`be null")
     private String name;
-    @NotNull(message = "Type of warehouse can`t be null")
+    //@NotNull(message = "Type of warehouse can`t be null")
     private TypeOfWarehouse type;
     private Float volume;
 

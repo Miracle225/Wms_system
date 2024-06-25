@@ -19,7 +19,6 @@ public class GoodDto {
     @NotNull(message = "The name must not be null")
     private String name;
     private String description;
-    @DateTimeFormat(pattern = "DD/MM/YYYY")
     private Date expirationTerm;
     @NotNull(message = "Price can`t be null")
     private Float price;
@@ -30,6 +29,7 @@ public class GoodDto {
     private GoodStatus status;
     private UnitOfMeasurement unit;
     private Warehouse warehouse;
+    private Double volume;
 
 
 public Good toGoodEntity(){
@@ -43,6 +43,7 @@ public Good toGoodEntity(){
             expirationTerm,
             status,
             category,
-            warehouse);
+            warehouse,
+            volume);
 }
 }

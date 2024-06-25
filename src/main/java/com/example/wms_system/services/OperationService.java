@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,11 +27,16 @@ public class OperationService {
             return new OperationNotFoundException(id);
         });
     }
-   public List<Operation> getAllByOperationDate(Date date) {
+
+    public List<Operation> getByIdToList(Long id) {
+        return printLogInfo(List.of(operationRepository.findById(id).get()));
+    }
+
+    public List<Operation> getAllByOperationDate(Date date) {
         return printLogInfo(operationRepository.findAllByOperationDate(date));
     }
 
-   public List<Operation> getAllByOperationType(OperationType type) {
+    public List<Operation> getAllByOperationType(OperationType type) {
         return printLogInfo(operationRepository.findAllByOperationType(type));
     }
 
@@ -39,7 +44,11 @@ public class OperationService {
         return printLogInfo(operationRepository.findAllInPeriod(start, end));
     }
 
-   public List<Operation> getAll() {
+    public List<Operation> getAllByUserId(Long id) {
+        return printLogInfo(operationRepository.findAllByUserId(id));
+    }
+
+    public List<Operation> getAll() {
         return printLogInfo(operationRepository.findAll());
     }
 
@@ -54,8 +63,9 @@ public class OperationService {
     @Transactional
     public Operation updateOperation(Long id, OperationDto operationDto) {
         Operation operation = operationRepository.findById(id).orElseThrow(() -> new OperationNotFoundException(id));
-        return updateOperationFields(operation,operationDto);
+        return updateOperationFields(operation, operationDto);
     }
+
     public void deleteOperationById(Long id) {
         operationRepository.deleteById(id);
         log.info("Delete operation by id: {}", id);

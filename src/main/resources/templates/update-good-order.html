@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Good Order</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="overlay">
+    <div class="modal">
+        <span class="close-btn" onclick="location.href='/orders'">&#10006;</span>
+        <h2>Update Good Order</h2>
+        <form th:action="@{/order-goods/update/{id}(id=${goodOrder.id})}" method="post" th:object="${goodOrder}">
+            <label for="order">Order ID</label>
+            <input type="number" id="order" th:field="*{order.id}" th:value="${goodOrder.order.id}" required>
+            <label for="good">Good ID</label>
+            <input type="number" id="good" th:field="*{good.id}"  th:value="${goodOrder.good.id}" required>
+            <label for="quantity">Quantity ID</label>
+            <input type="number" id="quantity" th:field="*{quantity}" th:value="${goodOrder.quantity}" required>
+            <div>
+                <button type="submit">Update</button>
+                <button type="button" class="cancel" onclick="location.href='/orders'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

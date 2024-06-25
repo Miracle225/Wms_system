@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class WarehouseSectorDto {
@@ -20,6 +19,9 @@ public class WarehouseSectorDto {
     private Float availableVolume;
     private Warehouse warehouse;
 
+    public WarehouseSectorDto(){
+        availableVolume = totalVolume;
+    }
     public WarehouseSector toSectorEntity() {
         return new WarehouseSector(name,
                 totalVolume,

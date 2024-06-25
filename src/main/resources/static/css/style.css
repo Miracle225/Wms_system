@@ -1,0 +1,573 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+}
+
+header {
+    background-color: #5187F4;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-right span {
+    margin-right: 20px;
+}
+
+.logout-btn {
+    background-color: #0066cc;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+nav {
+    background-color: #0044cc;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+}
+
+nav a:hover, nav a.active {
+    background-color: #003399;
+}
+
+.search-section {
+    padding: 20px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+}
+
+.search-section form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.search-section form div {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-section label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.search-section input, .search-section select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-section .buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-section button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-section button[type="submit"] {
+    background-color: #0066cc;
+    color: white;
+}
+
+.search-section button[type="reset"] {
+    background-color: #ccc;
+}
+
+.goods-section {
+    padding: 20px;
+    background-color: white;
+}
+
+.goods-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.goods-section th, .goods-section td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.goods-section th {
+    background-color: #f2f2f2;
+}
+
+.goods-section .update-btn, .goods-section .delete-btn {
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.goods-section .update-btn {
+    background-color: #0066cc;
+    color: white;
+    display: flex;
+}
+
+.goods-section .delete-btn {
+    background-color: #cc0000;
+    color: white;
+    display: flex;
+}
+.goods-section .add-btn {
+    display: inline-block;
+    padding: 10px 16px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 50%;
+    font-size: 24px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+.container img {
+    max-width:  80%;
+    max-height: 80px;
+    height: auto;
+}
+.login-container {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+}
+.login-container h1 {
+    font-family: 'Comic Sans MS', sans-serif;
+    color: #3366cc;
+}
+.login-container h2 {
+    font-family: 'Arial', sans-serif;
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.login-container form {
+    display: flex;
+    flex-direction: column;
+}
+.login-container input {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.login-container button {
+    background-color: #3366cc;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.login-container button:hover {
+    background-color: #294c99;
+}
+.error-message {
+    color: red;
+    font-size: 14px;
+}
+.login-container img {
+    max-width:  100%;
+    max-height: 100px;
+    height: auto;
+    margin-bottom: 20px;
+}
+.orders-section {
+    padding: 20px;
+    background-color: white;
+}
+
+.orders-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.orders-section th, .orders-section td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.orders-section th {
+    background-color: #f2f2f2;
+}
+
+.orders-section .update-btn,
+.orders-section .delete-btn,
+.orders-section .check-btn,
+.orders-section .distribute-btn {
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.orders-section .update-btn {
+    background-color: #0066cc;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0;
+    width: 40%;
+    text-align: center;
+}
+
+.orders-section .delete-btn {
+    background-color: #cc0000;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0;
+    width: 40%;
+    text-align: center;
+}
+
+.orders-section .add-btn {
+    display: inline-block;
+    padding: 10px 16px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 50%;
+    font-size: 24px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+.orders-section .check-btn {
+    background-color: #42f5bf;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0;
+    width: 40%;
+}
+
+.orders-section .distribute-btn {
+    background-color: darkorange;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0;
+    width: 40%;
+    text-align: center;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #AED6F1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Стиль для форми */
+.modal {
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+    width: 400px;
+    position: relative;
+}
+
+.modal h2 {
+    text-align: center;
+}
+
+.modal label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.modal input, .modal select, .modal textarea {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.modal button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+.modal button.cancel {
+    background-color: #f44336;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.reg-body {
+    background-color: #e5e5e5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.register-container {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+    width: 300px;
+}
+.register-container h1 {
+    font-family: 'Comic Sans MS', sans-serif;
+    color: #3366cc;
+}
+.register-container h2 {
+    font-family: 'Arial', sans-serif;
+    color: #666;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+.register-container form {
+    display: flex;
+    flex-direction: column;
+}
+.register-container input {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.register-container button {
+    background-color: #3366cc;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.register-container button:hover {
+    background-color: #294c99;
+}
+.error-message {
+    color: red;
+    font-size: 14px;
+}
+.register-container img {
+    max-width:  100%;
+    max-height: 100px;
+    height: auto;
+    margin-bottom: 20px;
+}
+.header-admin {
+    background-color: #ffe0b5;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-admin .logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-right span {
+    margin-right: 20px;
+}
+
+.admin-logout-btn {
+    background-color: #ffb11b;
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.nav-admin {
+    background-color: #ffa500;
+    padding: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.nav-admin a {
+    color: white;
+    padding: 14px 20px;
+    text-decoration: none;
+    text-align: center;
+    display: block;
+}
+.nav-admin a:hover, nav a.active1 {
+    background-color: #ff4700;
+}
+.search-section-admin {
+    padding: 20px;
+    background-color: white;
+    border-bottom: 1px solid #ddd;
+}
+
+.search-section-admin form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.search-section-admin form div {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-section-admin label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.search-section-admin input, .search-section select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-section-admin .buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.search-section-admin button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.search-section-admin button[type="submit"] {
+    background-color: #ffa500;
+    color: white;
+}
+
+.search-section-admin button[type="reset"] {
+    background-color: #ccc;
+}
+.admin-section {
+    padding: 20px;
+    background-color: white;
+}
+
+.admin-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.admin-section th, .admin-section td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.admin-section th {
+    background-color: #f2f2f2;
+}
+
+.admin-section .update-btn, .admin-section .delete-btn {
+    padding: 6px 12px;
+    text-decoration: none;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+.admin-section .update-btn {
+    background-color: #0066cc;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0;
+    width: 60%;
+    text-align: center;
+}
+
+.admin-section .delete-btn {
+    background-color: #cc0000;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0;
+    width: 60%;
+    text-align: center;
+}
+
+.admin-section .add-btn {
+    display: inline-block;
+    padding: 10px 16px;
+    background-color: #28a745;
+    color: white;
+    text-decoration: none;
+    border-radius: 50%;
+    font-size: 24px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}

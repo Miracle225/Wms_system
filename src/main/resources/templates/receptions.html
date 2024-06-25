@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Warehouse Management System</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <img src="/images/logo.png" alt="Company Logo">
+        <div class="header-right">
+            <span>You are logged as: <span th:text="qwerty123"></span></span>
+            <a th:href="@{/auth/login}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+
+    <nav>
+        <a th:href="@{/orders}">Order</a>
+        <a th:href="@{/receptions}" class="active">Acceptance</a>
+        <a th:href="@{/goods}" >Goods</a>
+        <a th:href="@{/operations}">Operation</a>
+        <a th:href="@{/sector-goods}">Goods in Sectors</a>
+    </nav>
+
+    <section class="search-section">
+        <form th:action="@{/receptions}" method="get">
+            <div>
+                <label for="id">Id:</label>
+                <input type="text" id="id" name="id">
+            </div>
+            <div>
+                <label for="date">Acceptance Date:</label>
+                <input type="date" id="date" name="date">
+            </div>
+            <div>
+                <label for="start">Start Date:</label>
+                <input type="date" id="start" name="start">
+            </div>
+            <div>
+                <label for="end">End Date:</label>
+                <input type="date" id="end" name="end">
+            </div>
+            <div class="buttons">
+                <button type="submit">Search</button>
+                <button type="reset">Clear</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="orders-section">
+        <table>
+            <thead>
+            <tr>
+                <th>Acceptance ID</th>
+                <th>Acceptance Date</th>
+                <th>Accepts Volume</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Provider ID</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="acceptance : ${acceptances}">
+                <td th:text="${acceptance.id}">Acceptance ID</td>
+                <td th:text="${acceptance.acceptionDate}">Acceptance Date</td>
+                <td th:text="${acceptance.acceptsVolume}">Accepts Volume</td>
+                <td th:text="${acceptance.price}">Price</td>
+                <td th:text="${acceptance.quantity}">Quantity</td>
+                <td th:text="${acceptance.provider.id}">Provider ID</td>
+                <td>
+                    <a th:href="@{/receptions/update/{id}(id=${acceptance.id})}" class="update-btn">Update</a>
+                    <a th:href="@{/receptions/delete/{id}(id=${acceptance.id})}" class="delete-btn">Delete</a>
+                    <a th:href="@{reception-item/{id}(id=${acceptance.id})}" class = "check-btn">Check info</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/receptions/add}" class="add-btn">+</a>
+    </section>
+</div>
+</body>
+</html>

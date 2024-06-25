@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Warehouse Management System</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <img src="/images/logo.png" alt="Company Logo">
+        <div class="header-right">
+            <span>You are logged as: <span th:text="qwerty123"></span></span>
+            <a th:href="@{/auth/login}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+    <nav>
+        <a th:href="@{/orders}" class="active">Order</a>
+        <a th:href="@{/receptions}">Acceptance</a>
+        <a th:href="@{/goods}">Goods</a>
+        <a th:href="@{/operations}">Operation</a>
+        <a th:href="@{/sector-goods}">Goods in Sectors</a>
+    </nav>
+
+    <section class="search-section">
+        <form th:action="@{/orders}" method="get">
+            <div>
+                <label for="Id">Id:</label>
+                <input type="text" id="Id" name="Id">
+            </div>
+            <div>
+                <label for="status">Status:</label>
+                <select id="status" name="status">
+                    <option value="ALL">All</option>
+                    <option value="CANCELLED">CANCELLED</option>
+                    <option value="DELIVERED">DELIVERED</option>
+                    <option value="NEW">NEW</option>
+                    <option value="ON_HOLD">ON_ORDER</option>
+                    <option value="PENDING_APPROVAL">PENDING_APPROVAL</option>
+                    <option value="SHIPPED">SHIPPED</option>
+                </select>
+            </div>
+            <div>
+                <label for="method">Payment Method:</label>
+                <select id="method" name="method">
+                    <option value="ALL">All</option>
+                    <option value="CASH">CASH</option>
+                    <option value="CREDIT_CARD">CREDIT_CARD</option>
+                    <option value="DEBIT_CARD">DEBIT_CARD</option>
+                </select>
+            </div>
+            <div>
+                <label for="start">StartDate:</label>
+                <input type="date" id="start" name="start">
+            </div>
+            <div>
+                <label for="end">EndDate:</label>
+                <input type="date" id="end" name="end">
+            </div>
+            <div>
+                <label for="customerId">CustomerID:</label>
+                <input type="text" id="customerId" name="customerId">
+            </div>
+            <div class="buttons">
+                <button type="submit">Search</button>
+                <button type="reset">Clear</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="orders-section">
+        <table>
+            <thead>
+            <tr>
+                <th>OrderID</th>
+                <th>Order date</th>
+                <th>Status</th>
+                <th>Payment Method</th>
+                <th>CustomerID</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="order : ${orders}">
+                <td th:text="${order.id}">OrderID</td>
+                <td th:text="${order.orderDate}">Order date</td>
+                <td th:text="${order.status}">Status</td>
+                <td th:text="${order.paymentMethod}">PaymentMethod</td>
+                <td th:text="${order.customer.id}">CustomerID</td>
+                <td>
+                    <a th:href="@{/orders/update/{id}(id=${order.id})}" class="update-btn">Update</a>
+                    <a th:href="@{/orders/delete/{id}(id=${order.id})}" class="delete-btn">Delete</a>
+                    <a th:href="@{order-goods/{id}(id=${order.id})}" class = "check-btn">Check info</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/orders/add}" class="add-btn">+</a>
+    </section>
+</div>
+</body>
+</html>

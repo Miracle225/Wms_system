@@ -16,7 +16,7 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/customers")
+@RequestMapping("/customers")
 public class CustomerController {
     private final CustomerService customerService;
 

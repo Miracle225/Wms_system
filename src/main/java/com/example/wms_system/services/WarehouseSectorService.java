@@ -42,6 +42,13 @@ public class WarehouseSectorService {
     public List<WarehouseSector> getAllByWarehouse(Long id){
         return printLogInfo(sectorRepository.findAllByWarehouseId(id));
     }
+
+    public List<WarehouseSector> getAllBySectorNamePart(String name){
+        return printLogInfo(sectorRepository.findAllByNamePart(name));
+    }
+    public List<WarehouseSector> getByIdToList(Long id){
+        return printLogInfo(List.of(sectorRepository.findById(id).get()));
+    }
     public List<WarehouseSector> getAllSectors(){
         return printLogInfo(sectorRepository.findAll());
     }

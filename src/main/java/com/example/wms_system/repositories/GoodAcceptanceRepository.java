@@ -12,6 +12,6 @@ import java.util.List;
 public interface GoodAcceptanceRepository extends JpaRepository<GoodAcceptance,Long> {
 List<GoodAcceptance> findAllByAcceptionDate(Date date);
 
-@Query("SELECT a FROM GoodAcceptance a WHERE a.acceptionDate> ?1 AND a.acceptionDate< ?2")
+@Query("SELECT a FROM GoodAcceptance a WHERE a.acceptionDate>= ?1 AND a.acceptionDate<= ?2")
 List<GoodAcceptance> findAllInPeriod(Date start, Date end);
 }

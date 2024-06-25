@@ -11,7 +11,6 @@ import lombok.Setter;
 import java.sql.Date;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class GoodAcceptanceDto {
@@ -22,6 +21,12 @@ public class GoodAcceptanceDto {
     private Float price;
     private Integer quantity;
     private Provider provider;
+
+   public GoodAcceptanceDto(){
+        quantity = 0;
+        price = 0.0f;
+        acceptsVolume = 0.0f;
+    }
 
     public GoodAcceptance toAcceptanceEntity(){
     return new GoodAcceptance(

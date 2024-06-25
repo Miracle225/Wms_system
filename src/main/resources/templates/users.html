@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Warehouse Management System</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header class="header-admin">
+        <img src="/images/logo.png" alt="Company Logo">
+        <div class="header-right">
+            <span>You are logged as: <span th:text="admin123"></span></span>
+            <a th:href="@{/auth/login}" class="admin-logout-btn">Logout</a>
+        </div>
+    </header>
+
+    <nav class="nav-admin">
+        <a th:href="@{/admin/users}" class="active1">Users</a>
+        <a th:href="@{/admin/warehouses}">Warehouse</a>
+        <a th:href="@{/admin/sectors}" >Warehouse sector</a>
+    </nav>
+
+    <section class="search-section-admin">
+        <form th:action="@{/admin/users}" method="get">
+            <div>
+                <label for="id">Id:</label>
+                <input type="text" id="id" name="id">
+            </div>
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username">
+            </div>
+            <div>
+                <label for="role">Role:</label>
+                <select id="role" name="role">
+                    <option value="ALL">All</option>
+                    <option value="ROLE_ADMIN">ROLE_ADMIN</option>
+                    <option value="ROLE_WAREHOUSE_MANAGER">ROLE_WAREHOUSE_MANAGER</option>
+                </select>
+            </div>
+            <div class="buttons">
+                <button class="submit-admin" type="submit">Search</button>
+                <button type="reset">Clear</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="admin-section">
+        <table>
+            <thead>
+            <tr>
+                <th>User ID</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}">User ID</td>
+                <td th:text="${user.username}">Username</td>
+                <td th:text="${user.password}">Password</td>
+                <td th:text="${user.email}">Email</td>
+                <td th:text="${user.role}">Role</td>
+                <td>
+                    <a th:href="@{/admin/users/update/{id}(id=${user.id})}" class="update-btn">Update</a>
+                    <a th:href="@{/admin/users/delete/{id}(id=${user.id})}" class="delete-btn">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/admin/users/register}" class="add-btn">+</a>
+    </section>
+</div>
+</body>
+</html>

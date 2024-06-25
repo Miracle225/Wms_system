@@ -30,15 +30,14 @@ public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "order_date", columnDefinition = "DATETIME")
-    @DateTimeFormat(pattern = "DD/MM/YYYY HH:MM")
+    @Column(name = "order_date", columnDefinition = "DATETIME",nullable = false)
     private Date orderDate;
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;
     @ManyToOne
-    @JoinColumn(name = "customer_id"/*, nullable = false*/)
+    @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
     public Order(OrderStatus status,
                  PaymentMethod paymentMethod,

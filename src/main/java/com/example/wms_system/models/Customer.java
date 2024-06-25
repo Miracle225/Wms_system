@@ -31,7 +31,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
 
-    @Column(name = "full_name", columnDefinition = "VARCHAR(100)")
+    @Column(name = "full_name", columnDefinition = "VARCHAR(100)",nullable = false)
     @NotNull(message = "Full name can`t be null")
     private String fullName;
 

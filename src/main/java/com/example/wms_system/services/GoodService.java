@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,7 +54,12 @@ public class GoodService {
     public List<Good> getAllByCategory(GoodCategory category) {
         return printLogInfo(goodRepository.findAllByCategory(category));
     }
-
+    public  List<Good> getAllByNamePart(String name){
+        return  printLogInfo(goodRepository.findAllByName(name));
+    }
+    public  List<Good> getAllById(Long id){
+        return  printLogInfo(List.of(goodRepository.findById(id).get()));
+    }
     public List<Good> getAllByStatus(GoodStatus status) {
         return printLogInfo(goodRepository.findAllByStatus(status));
     }

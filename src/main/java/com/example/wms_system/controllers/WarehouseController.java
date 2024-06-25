@@ -1,6 +1,12 @@
 package com.example.wms_system.controllers;
 
+import com.example.wms_system.dto.GoodDto;
 import com.example.wms_system.dto.WarehouseDto;
+import com.example.wms_system.enums.GoodCategory;
+import com.example.wms_system.enums.GoodStatus;
+import com.example.wms_system.enums.TypeOfWarehouse;
+import com.example.wms_system.enums.UnitOfMeasurement;
+import com.example.wms_system.models.Good;
 import com.example.wms_system.models.Warehouse;
 import com.example.wms_system.services.WarehouseService;
 import jakarta.validation.Valid;
@@ -8,21 +14,25 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Slf4j
-@RestController
+@Controller
 @RequiredArgsConstructor
-@RequestMapping(value = "/warehouses")
+@RequestMapping("/admin/warehouses")
 public class WarehouseController {
     private final WarehouseService warehouseService;
 
     @ResponseStatus(HttpStatus.OK)
     @GetMapping
-    public List<Warehouse> getAllWarehouses() {
-        return warehouseService.getAllWarehouses();
+    public String getAllWarehouses(Model model) {
+        List<Warehouse> warehouses = warehouseService.getAllWarehouses();
+        model.addAttribute("warehouses",warehouses);
+        return "warehouses";
     }
 
     @ResponseStatus(HttpStatus.OK)
@@ -43,21 +53,37 @@ public class WarehouseController {
         return warehouseService.getByAddress(address);
     }
 
-    @PostMapping()
-    ResponseEntity<?> createWarehouse(@RequestBody @Valid WarehouseDto warehouseDto) {
-        var warehouse = warehouseService.createNewWarehouse(warehouseDto);
-        return new ResponseEntity<>(warehouse, HttpStatus.CREATED);
+    @GetMapping("/add")
+    public String showCreateWarehouseForm(Model model) {
+        model.addAttribute("warehouse", new WarehouseDto());
+        model.addAttribute("types", TypeOfWarehouse.values());
+        return "create-warehouse";
     }
 
-    @PutMapping("/{id}")
-    ResponseEntity<?> updateWarehouse(@PathVariable Long id, @RequestBody @Valid WarehouseDto warehouseDto) {
-        var warehouse = warehouseService.updateWarehouse(id, warehouseDto);
-        return new ResponseEntity<>(warehouse, HttpStatus.ACCEPTED);
+    @PostMapping("/add")
+    public String createWarehouse(@ModelAttribute @Valid WarehouseDto warehouseDto) {
+        warehouseService.createNewWarehouse(warehouseDto);
+        return "redirect:/admin/warehouses";
     }
 
-    @DeleteMapping("/{id}")
-    ResponseEntity<?> deleteWarehouse(@PathVariable Long id) {
+    @GetMapping("/update/{id}")
+    public String showUpdateWarehouseForm(@PathVariable Long id, Model model) {
+        Warehouse warehouse = warehouseService.getById(id);
+        model.addAttribute("warehouse", warehouse);
+        model.addAttribute("types", TypeOfWarehouse.values());
+        return "update-warehouse";
+
+    }
+
+    @PostMapping("/update/{id}")
+    public String updateWarehouse(@PathVariable Long id, @ModelAttribute @Valid WarehouseDto warehouseDto) {
+       warehouseService.updateWarehouse(id,warehouseDto);
+        return "redirect:/admin/warehouses";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deleteWarehouse(@PathVariable Long id) {
         warehouseService.deleteWarehouseById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return "redirect:/admin/warehouses";
     }
 }

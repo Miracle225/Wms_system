@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Order</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="overlay">
+    <div class="modal">
+        <span class="close-btn" onclick="location.href='/orders'">&#10006;</span>
+        <h2>Create Order</h2>
+        <form th:action="@{/orders/add}" method="post" th:object="${order}">
+
+
+            <label for="status">Order Status</label>
+            <select id="status" th:field="*{status}">
+                <option th:each="status : ${statuses}" th:value="${status}" th:text="${status}">Status</option>
+            </select>
+
+            <label for="method">Payment Method</label>
+            <select id="method" th:field="*{method}">
+                <option th:each="method : ${methods}" th:value="${method}" th:text="${method}">Payment Method</option>
+            </select>
+
+            <label for="customer">Customer ID</label>
+            <input type="number" id="customer" th:field="*{customer.id}" required>
+
+            <div>
+                <button type="submit">Create</button>
+                <button type="button" class="cancel" onclick="location.href='/orders'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -36,7 +36,7 @@ user_id               INT  NOT NULL
     @Enumerated(EnumType.STRING)
     private OperationType operationType;
 
-    @Column(name = "operation_date",columnDefinition = "DATETIME")
+    @Column(name = "operation_date",columnDefinition = "DATETIME", nullable = false)
     @DateTimeFormat(pattern = "DD/MM/YYYY HH:MM")
     private Date operationDate;
 

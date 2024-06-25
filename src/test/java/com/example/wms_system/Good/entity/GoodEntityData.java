@@ -25,7 +25,8 @@ public abstract class GoodEntityData {
                 new Warehouse("new st 100",
                         "warehouse",
                         TypeOfWarehouse.FOOD_WAREHOUSE,
-                        1000f));
+                        1000f),
+                1.25);
     }
 
     public static Good getSingleGoodWithId(){
@@ -42,7 +43,8 @@ public abstract class GoodEntityData {
                 new Warehouse("new st 100",
                         "warehouse",
                         TypeOfWarehouse.FOOD_WAREHOUSE,
-                        1000f));
+                        1000f),
+                2.56);
         good.setId(1L);
         return good;
     }
@@ -60,6 +62,7 @@ public abstract class GoodEntityData {
                 new Warehouse(1L,"new st 100",
                         "warehouse",
                         TypeOfWarehouse.FOOD_WAREHOUSE,
-                        1000f)));
+                        1000f),
+                1.11));
     }
 }

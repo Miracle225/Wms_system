@@ -1,5 +1,7 @@
 package com.example.wms_system.models;
 
+import com.example.wms_system.dto.GoodDto;
+import com.example.wms_system.dto.GoodOrderDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,22 +21,39 @@ public class GoodOrder {
   order_id              INT  NOT NULL
 );
      */
-    @Id
-    @Column(name = "good_id")
-    private Long goodId;
+
+    public GoodOrder(Integer quantity,
+                     Good good,
+                     Order order) {
+        this.quantity = quantity;
+        this.good = good;
+        this.order = order;
+    }
 
     @Id
-    @Column(name = "order_id")
-    private Long orderId;
-
-    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false)
     private Integer quantity;
 
     @ManyToOne
-    @JoinColumn(name = "good_id", referencedColumnName = "id")
+    @JoinColumn(name = "good_id")
     private Good good;
 
     @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "id")
+    @JoinColumn(name = "order_id")
     private Order order;
+
+    public GoodOrder updateFields(GoodOrderDto goodDto) {
+        if (goodDto.getQuantity() != null) {
+            quantity = goodDto.getQuantity();
+        }
+        if (goodDto.getGood() != null) {
+            good = goodDto.getGood();
+        }
+        if (goodDto.getOrder() != null) {
+           order = goodDto.getOrder();
+        }
+        return this;
+    }
 }

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Good</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="overlay">
+    <div class="modal">
+        <span class="close-btn" onclick="location.href='/goods'">&#10006;</span>
+        <h2>Update Good</h2>
+        <form th:action="@{/goods/update/{id}(id = ${good.id})}" method="post" th:object="${good}">
+            <label for="name">Name</label>
+            <input type="text" id="name" th:field="*{name}" required th:value="${good.name}">
+
+            <label for="code">Code</label>
+            <input type="text" id="code" th:field="*{code}" required th:value="${good.code}">
+
+            <label for="description">Description</label>
+            <textarea id="description" th:field="*{description}" required th:value="${good.description}"></textarea>
+
+            <label for="category">Good Category</label>
+            <select id="category" th:field="*{category}">
+                <option th:each="category : ${categories}" th:value="${good.category}" th:text="${category}">Category</option>
+            </select>
+
+            <label for="status">Good Status</label>
+            <select id="status" th:field="*{status}">
+                <option th:each="status : ${statuses}" th:value="${good.status}" th:text="${status}">Status</option>
+            </select>
+
+            <label for="expirationTerm">Expiration Term</label>
+            <input type="date" id="expirationTerm" th:field="*{expirationTerm}" required th:value="${good.expirationTerm}">
+
+            <label for="price">Price</label>
+            <input type="number" id="price" th:field="*{price}" required th:value="${good.price}" step="any">
+
+            <label for="weight">Weight</label>
+            <input type="number" id="weight" th:field="*{weight}" required th:value="${good.weight}" step="any">
+
+            <label for="unit">Unit of Measurement</label>
+            <select id="unit" th:field="*{unitOfMeasurement}">
+                <option th:each="unit : ${units}" th:value="${good.unitOfMeasurement}" th:text="${unit}">Unit</option>
+            </select>
+
+            <label for="warehouse">Warehouse ID</label>
+            <input type="number" id="warehouse" th:field="*{warehouse.id}" required th:value="${good.warehouse.id}">
+
+            <div>
+                <button type="submit">Update</button>
+                <button type="button" class="cancel" onclick="location.href='/goods'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

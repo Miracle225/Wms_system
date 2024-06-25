@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/providers")
+@RequestMapping("/providers")
 public class ProviderController {
     private final ProviderService providerService;
 

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Warehouse Management System</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header class="header-admin">
+        <img src="/images/logo.png" alt="Company Logo">
+        <div class="header-right">
+            <span>You are logged as: <span th:text="admin123"></span></span>
+            <a th:href="@{/auth/login}" class="admin-logout-btn">Logout</a>
+        </div>
+    </header>
+
+    <nav class="nav-admin">
+        <a th:href="@{/admin/users}">Users</a>
+        <a th:href="@{/admin/warehouses}" class="active1">Warehouse</a>
+        <a th:href="@{/admin/sectors}" >Warehouse sector</a>
+    </nav>
+    <section class="admin-section">
+        <table>
+            <thead>
+            <tr>
+                <th>Warehouse ID</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Volume</th>
+                <th>Address</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="warehouse : ${warehouses}">
+                <td th:text="${warehouse.id}">Warehouse ID</td>
+                <td th:text="${warehouse.name}">Name</td>
+                <td th:text="${warehouse.typeOfWarehouse}">Type</td>
+                <td th:text="${warehouse.volume}">Volume</td>
+                <td th:text="${warehouse.address}">Address</td>
+                <td>
+                    <a th:href="@{/admin/warehouses/update/{id}(id=${warehouse.id})}" class="update-btn">Update</a>
+                    <a th:href="@{/admin/warehouses/delete/{id}(id=${warehouse.id})}" class="delete-btn">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/admin/warehouses/add}" class="add-btn">+</a>
+    </section>
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>EasyStore - Warehouse Management System</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body class="reg-body">
+<div class="register-container">
+    <img src="/images/logo.png" alt="Company Logo">
+    <form id="register-form">
+        <input type="text" id="username" name="username" placeholder="Username" required />
+        <input type="password" id="password" name="password" placeholder="Password" required />
+        <input type="email" id="email" name="email" placeholder="Email" required />
+        <button type="submit">Register</button>
+    </form>
+    <div id="error-message" class="error-message"></div>
+</div>
+<script>
+    document.getElementById('register-form').addEventListener('submit', async function(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const email = document.getElementById('email').value;
+
+        const response = await fetch('/admin/users/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ username, password, email })
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            // Handle successful registration here, for example, redirect to login page
+            window.location.href = '/admin/users'; // Redirect to users page
+        } else {
+            const errorData = await response.json();
+            document.getElementById('error-message').innerText = errorData.message || 'Error during registration';
+        }
+    });
+</script>
+</body>
+</html>

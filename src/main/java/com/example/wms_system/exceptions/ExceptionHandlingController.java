@@ -67,6 +67,12 @@ public class ExceptionHandlingController {
     }
 
     @ResponseBody
+    @ExceptionHandler(AcceptanceItemNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    ErrorResponse acceptanceItemNotFoundHandler(AcceptanceItemNotFoundException exception, HttpServletRequest sr) {
+        return bulidErrorResponse(HttpStatus.NOT_FOUND.name(), HttpStatus.NOT_FOUND.value(), exception.getMessage(), sr.getRequestURI());
+    }
+    @ResponseBody
     @ExceptionHandler(CustomerAlreadyExists.class)
     @ResponseStatus(HttpStatus.CONFLICT)
     ErrorResponse customerAlreadyExistsHandler(CustomerAlreadyExists exception) {

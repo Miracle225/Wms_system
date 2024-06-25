@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Warehouse Management System</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header class="header-admin">
+        <img src="/images/logo.png" alt="Company Logo">
+        <div class="header-right">
+            <span>You are logged as: <span th:text="admin123"></span></span>
+            <a th:href="@{/auth/login}" class="admin-logout-btn">Logout</a>
+        </div>
+    </header>
+
+    <nav class="nav-admin">
+        <a th:href="@{/admin/users}">Users</a>
+        <a th:href="@{/admin/warehouses}">Warehouse</a>
+        <a th:href="@{/admin/sectors}" class="active1" >Warehouse sector</a>
+    </nav>
+    <section class="search-section-admin">
+        <form th:action="@{/admin/sectors}" method="get">
+            <div>
+                <label for="id">Id:</label>
+                <input type="text" id="id" name="id">
+            </div>
+            <div>
+                <label for="name">Sector name:</label>
+                <input type="text" id="name" name="name">
+            </div>
+            <div>
+                <label for="warehouse">Warehouse Id:</label>
+                <input type="text" id="warehouse" name="warehouse">
+            </div>
+            <div class="buttons">
+                <button class="submit-admin" type="submit">Search</button>
+                <button type="reset">Clear</button>
+            </div>
+        </form>
+    </section>
+    <section class="admin-section">
+        <table>
+            <thead>
+            <tr>
+                <th>Sector ID</th>
+                <th>Name</th>
+                <th>Available Volume</th>
+                <th>Total Volume</th>
+                <th>Warehouse ID</th>
+                <th>Sector occupancy</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sector : ${sectors}">
+                <td th:text="${sector.id}">Sector ID</td>
+                <td th:text="${sector.name}">Name</td>
+                <td th:text="${sector.availableVolume}">Available volume</td>
+                <td th:text="${sector.totalVolume}">Total volume</td>
+                <td th:text="${sector.warehouse.id}">Warehouse ID</td>
+                <td th:text="${((sector.totalVolume)-(sector.availableVolume))/(sector.totalVolume)*100}+'%'">Sector occupancy</td>
+                <td>
+                    <a th:href="@{/admin/sectors/update/{id}(id=${sector.id})}" class="update-btn">Update</a>
+                    <a th:href="@{/admin/sectors/delete/{id}(id=${sector.id})}" class="delete-btn">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/admin/sectors/add}" class="add-btn">+</a>
+    </section>
+</div>
+</body>
+</html>

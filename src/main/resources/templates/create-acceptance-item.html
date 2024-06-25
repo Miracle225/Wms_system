@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Acceptance Item</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="overlay">
+    <div class="modal">
+        <span class="close-btn" onclick="location.href='/receptions'">&#10006;</span>
+        <h2>Create Acceptance Item</h2>
+        <form th:action="@{/reception-item/add}" method="post" th:object="${item}">
+            <label for="expectedQuantity">Expected Quantity</label>
+            <input type="number" id="expectedQuantity" th:field="*{expectedQuantity}" required>
+            <label for="receivedQuantity">Received quantity</label>
+            <input type="number" id="receivedQuantity" th:field="*{receivedQuantity}" required>
+            <label for="good">Good ID</label>
+            <input type="number" id="good" th:field="*{good.id}" required>
+            <label for="acceptance">Acceptance ID</label>
+            <input type="number" id="acceptance" th:field="*{acceptance.id}" th:value="${accId}" required>
+            <div>
+                <button type="submit">Create</button>
+                <button type="button" class="cancel" onclick="location.href='/receptions'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

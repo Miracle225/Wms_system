@@ -8,7 +8,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.sql.Date;
 
 @Entity
@@ -47,20 +46,21 @@ public class Good {
     private String description;
     @Column(name = "code", nullable = false)
     private Long code;
-    @Column
+    @Column(nullable = false)
     @NotNull(message = "good price can`t be null")
     private Float price;
-    @Column(name = "weight")
+    @Column(name = "weight", nullable = false)
     private Float weight;
     @Enumerated(EnumType.STRING)
     private UnitOfMeasurement unitOfMeasurement;
-    @Column(columnDefinition = "DATE")
-    @DateTimeFormat(pattern = "DD/MM/YYYY")
+    @Column(columnDefinition = "DATE", nullable = false)
     private Date expirationTerm;
     @Enumerated(EnumType.STRING)
     private GoodStatus status;
     @Enumerated(EnumType.STRING)
     private GoodCategory category;
+    @Column(name = "volume",nullable = false)
+    private Double volume;
     @ManyToOne
     @JoinColumn(name = "warehouse_id", nullable = false)
     private Warehouse warehouse;
@@ -74,7 +74,8 @@ public class Good {
                 Date expirationTerm,
                 GoodStatus status,
                 GoodCategory category,
-                Warehouse warehouse) {
+                Warehouse warehouse,
+                Double volume) {
         this.name = name;
         this.description = description;
         this.code = code;
@@ -85,6 +86,7 @@ public class Good {
         this.status = status;
         this.category = category;
         this.warehouse = warehouse;
+        this.volume = volume;
     }
 
     public Good updateFields(GoodDto goodDto) {
@@ -117,6 +119,9 @@ public class Good {
         }
         if(goodDto.getWarehouse()!=null){
             warehouse = goodDto.getWarehouse();
+        }
+        if (goodDto.getVolume()!=null){
+            volume = goodDto.getVolume();
         }
         return this;
     }

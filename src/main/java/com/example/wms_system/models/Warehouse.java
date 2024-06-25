@@ -29,17 +29,17 @@ public class Warehouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
-    @Column(name = "address", columnDefinition = "VARCHAR(255)")
+    @Column(name = "address", columnDefinition = "VARCHAR(255)", nullable = false)
     @NotNull(message = "warehouse address can`t be null")
     private String address;
-    @Column(name = "name", columnDefinition = "VARCHAR(255)")
+    @Column(name = "name", columnDefinition = "VARCHAR(255)", nullable = false)
     @NotNull(message = "warehouse name can`t be null")
     private String name;
-    @Column(name = "type")
+    @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
     @NotNull(message = "warehouse type can`t be null")
     private TypeOfWarehouse typeOfWarehouse;
-    @Column(name = "volume")
+    @Column(name = "volume", nullable = false)
     private Float volume;
     /*@OneToMany(fetch = FetchType.LAZY,mappedBy = "warehouse", cascade = CascadeType.ALL)
     private List<Good> goods = new ArrayList<>();*/

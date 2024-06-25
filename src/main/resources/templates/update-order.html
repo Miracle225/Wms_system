@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Order</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <style>
+        /* Стиль для напівпрозорого фону */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #AED6F1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Стиль для форми */
+        .modal {
+            background-color: #f1f1f1;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+            width: 400px;
+            position: relative;
+        }
+
+        .modal h2 {
+            text-align: center;
+        }
+
+        .modal label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .modal input, .modal select, .modal textarea {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .modal button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        .modal button.cancel {
+            background-color: #f44336;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="overlay">
+    <div class="modal">
+        <span class="close-btn" onclick="location.href='/orders'">&#10006;</span>
+        <h2>Create Order</h2>
+        <form th:action="@{/orders/update/{id}(id = ${order.id})}" method="post" th:object="${order}">
+
+
+            <label for="status">Order Status</label>
+            <select id="status" th:field="*{status}">
+                <option th:each="status : ${statuses}" th:value="${status}" th:text="${status}">Status</option>
+            </select>
+
+            <label for="method">Payment Method</label>
+            <select id="method" th:field="*{paymentMethod}">
+                <option th:each="method : ${methods}" th:value="${method}" th:text="${method}">Payment Method</option>
+            </select>
+
+            <label for="customer">Customer ID</label>
+            <input type="number" id="customer" th:field="*{customer.id}" th:value="${order.customer.id}" required>
+
+            <div>
+                <button type="submit">Update</button>
+                <button type="button" class="cancel" onclick="location.href='/orders'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

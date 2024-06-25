@@ -34,17 +34,16 @@ public class GoodAcceptance {
     private Long id;
 
     @Column(name = "acception_date", columnDefinition = "DATE")
-    @DateTimeFormat(pattern = "DD/MM/YYYY")
     @NotNull(message = "acception date can`t be null")
     private Date acceptionDate;
-    @Column(name = "quantity")
+    @Column(name = "quantity", nullable = false)
     private Integer quantity;
-    @Column(name = "price")
+    @Column(name = "price",  nullable = false)
     private Float price;
-    @Column(name = "accepts_volume")
+    @Column(name = "accepts_volume",  nullable = false)
     private Float acceptsVolume;
     @ManyToOne
-    @JoinColumn(name = "provider_id"/*, nullable = false*/)
+    @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
 
     /*@OneToMany(fetch = FetchType.LAZY,mappedBy = "acceptance", cascade = CascadeType.ALL)

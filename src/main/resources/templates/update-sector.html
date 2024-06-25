@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Good</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="overlay">
+    <div class="modal">
+        <span class="close-btn" onclick="location.href='/admin/sectors'">&#10006;</span>
+        <h2>Update Warehouse Sector</h2>
+        <form th:action="@{/admin/sectors/update/{id}(id=${sector.id})}" method="post" th:object="${sector}">
+
+            <label for="name">Name</label>
+            <input type="text" id="name" th:field="*{name}" th:value="${sector.name}" required>
+            <label for="availableVolume">Available Volume</label>
+            <input type="number" id="availableVolume" th:field="*{availableVolume}" th:value="${sector.availableVolume}" step="any" required>
+            <label for="totalVolume"> Total Volume</label>
+            <input type="number" id="totalVolume" th:field="*{totalVolume}" th:value="${sector.totalVolume}" step="any" required>
+            <label for="warehouse">Warehouse</label>
+            <input type="text" id="warehouse" th:field="*{warehouse.id}" th:value="${sector.warehouse.id}">
+
+            <div>
+                <button type="submit">Update</button>
+                <button type="button" class="cancel" onclick="location.href='/admin/sectors'">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

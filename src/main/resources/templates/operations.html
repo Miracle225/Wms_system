@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Warehouse Management System</title>
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <img src="/images/logo.png" alt="Company Logo">
+        <div class="header-right">
+            <span>You are logged as: <span th:text="qwerty123"></span></span>
+            <a th:href="@{/auth/login}" class="logout-btn">Logout</a>
+        </div>
+    </header>
+    <nav>
+        <a th:href="@{/orders}" >Order</a>
+        <a th:href="@{/receptions}">Acceptance</a>
+        <a th:href="@{/goods}">Goods</a>
+        <a th:href="@{/operations}" class="active">Operation</a>
+        <a th:href="@{/sector-goods}">Goods in Sectors</a>
+    </nav>
+
+    <section class="search-section">
+        <form th:action="@{/operations}" method="get">
+            <div>
+                <label for="id">Id:</label>
+                <input type="text" id="id" name="id">
+            </div>
+            <div>
+                <label for="type">Type:</label>
+                <select id="type" name="type">
+                    <option value="ALL">All</option>
+                    <option value="CREATING_ORDER">CREATING_ORDER</option>
+                    <option value="GOOD_ACCEPTANCE">GOOD_ACCEPTANCE</option>
+                    <option value="INVERTERIZATION">INVERTERIZATION</option>
+                    <option value="MOVING">MOVING</option>
+                    <option value="SHIPMENT">SHIPMENT</option>
+                </select>
+            </div>
+            <div>
+                <label for="opDate">Operation Date:</label>
+                <input type="date" id="opDate" name="opDate">
+            </div>
+            <div>
+                <label for="start">StartDate:</label>
+                <input type="date" id="start" name="start">
+            </div>
+            <div>
+                <label for="end">EndDate:</label>
+                <input type="date" id="end" name="end">
+            </div>
+            <div>
+                <label for="userId">UserID:</label>
+                <input type="text" id="userId" name="userId">
+            </div>
+            <div class="buttons">
+                <button type="submit">Search</button>
+                <button type="reset">Clear</button>
+            </div>
+        </form>
+    </section>
+
+    <section class="orders-section">
+        <table>
+            <thead>
+            <tr>
+                <th>Operation ID</th>
+                <th>Operation date</th>
+                <th>Description</th>
+                <th>Operation type</th>
+                <th>User ID</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="operation : ${operations}">
+                <td th:text="${operation.id}">Operation ID</td>
+                <td th:text="${operation.operationDate}">Operation date</td>
+                <td th:text="${operation.description}">Description</td>
+                <td th:text="${operation.operationType}">Operation type</td>
+                <td th:text="${operation.user.id}">User ID</td>
+                <td>
+                    <a th:href="@{/operations/update/{id}(id=${operation.id})}" class="update-btn">Update</a>
+                    <a th:href="@{/operations/delete/{id}(id=${operation.id})}" class="delete-btn">Delete</a>
+                    <a th:href="@{operation-goods/{id}(id=${operation.id})}" class = "check-btn">Check info</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/operations/add}" class="add-btn">+</a>
+    </section>
+</div>
+</body>
+</html>

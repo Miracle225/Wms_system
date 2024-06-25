@@ -31,9 +31,9 @@ public class WarehouseSector {
     @ManyToOne
     @JoinColumn(name = "warehouse_id", nullable = false)
     private Warehouse warehouse;
-    @Column(name = "total_volume")
+    @Column(name = "total_volume",nullable = false)
     private Float totalVolume;
-    @Column(name = "availableVolume")
+    @Column(name = "availableVolume",nullable = false)
     private Float availableVolume;
 
     public WarehouseSector(String name,
